@@ -23,7 +23,7 @@ app.use(morgan("common"));
 app.use(helmet());
 app.use(rateLimit({
 	windowMs: 10 * 60 * 1000, // 10 minutes
-	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	limit: 100, // limit each IP to 100 requests per `window`
 	standardHeaders: "draft-7", 
 	legacyHeaders: false,
   message: "Too many requests.",
