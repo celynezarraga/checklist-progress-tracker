@@ -7,7 +7,10 @@ class SubChecklistModel {
     try {
       const { title, description, created_by, created_at, parent_id } = subChecklist;
       const connection = await database.connect();
-      const sqlQuery = "INSERT INTO sub_checklist (title, description, created_by, created_at, parent_id) values ($1, $2, $3, $4, $5) returning id, title, description, created_at, created_by, parent_id";
+      const sqlQuery = `INSERT INTO sub_checklist
+        (title, description, created_by, created_at, parent_id)
+        values ($1, $2, $3, $4, $5) returning id, title, description, created_at, created_by, parent_id
+      `;
       const result = await connection.query(
         sqlQuery,
         [

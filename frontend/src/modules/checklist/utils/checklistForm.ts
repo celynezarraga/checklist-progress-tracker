@@ -23,10 +23,18 @@ export const validateChecklistFormInput = (
   setInvalidValues: (invalidValues: ChecklistFormInvalidValues) => void,
   setErrorMessage: (error: string) => void,
 ) => {
-  const { title } = values;
+  const { title, description } = values;
   const invalidTitle = !(title.length > 0);
+  const titleLengthExceeded = title.length > 100;
+  const descriptionLengthExceeded = description.length > 500;
   setInvalidValues({
-    title: invalidTitle,
-    description: false
+    title: invalidTitle || titleLengthExceeded,
+    description: descriptionLengthExceeded
   });
+  if (titleLengthExceeded || descriptionLengthExceeded) {
+    setErrorMessage(
+      `${titleLengthExceeded ? "Title must be at most 100 characters. " : ""}
+      ${descriptionLengthExceeded ? "Description must be at most 500 characters. " : ""}`
+    );
+  }
 };
