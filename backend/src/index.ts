@@ -3,8 +3,10 @@ import helmet from "helmet";
 import morgan from "morgan";
 import { rateLimit } from "express-rate-limit";
 import ErrorMiddleware from "./middleware/error";
+import config from "./config";
+import database from "./database";
 
-const PORT = 3030;
+const PORT = config.PORT || 3030;
 
 const app: Application = express();
 
@@ -14,8 +16,8 @@ app.use(express.json());
 app.use(morgan("common"));
 app.use(helmet());
 app.use(rateLimit({
-	windowMs: 30 * 60 * 1000, // 1- minutes
-	limit: 100, // Limit each IP to 100 requests per `window` (here, per 10 minutes).
+	windowMs: 10 * 60 * 1000, // 10 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
 	standardHeaders: "draft-7",
 	legacyHeaders: false,
   message: "Too many requests."
@@ -33,6 +35,17 @@ app.post("/", (req: Request, res: Response) => {
   res.json({
     message: "Hello World from post!!!",
     data: req.body
+  });
+});
+
+// DB CONNECTION TEST
+database.connect().then((client) => {
+  return client.query("SELECT NOW()").then(res => {
+    client.release();
+    console.log(res.rows);
+  }).catch(err => {
+    client.release();
+    console.log(err.stack);
   });
 });
 
