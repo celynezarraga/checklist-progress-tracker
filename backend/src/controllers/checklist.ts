@@ -27,9 +27,14 @@ export const create = async (req: Request, res: Response, next: NextFunction) =>
 
 export const getSubItemsDetails = async (item: Checklist): Promise<Checklist> => {
   const results = await checklistModel.getSubItemCount(item.id!);
+  const { completed_subitems = 0, subitem_count = 0 } = results;
   return {
     ...item,
-    ...results
+    ...results,
+    completed:
+      (subitem_count > 0)
+        ? completed_subitems === subitem_count
+        : item.completed
   };
 };
 

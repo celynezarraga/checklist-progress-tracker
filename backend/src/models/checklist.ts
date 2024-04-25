@@ -7,7 +7,10 @@ class ChecklistModel {
     try {
       const { title, description, created_by, created_at } = checklist;
       const connection = await database.connect();
-      const sqlQuery = "INSERT INTO checklist (title, description, created_by, created_at) values ($1, $2, $3, $4) returning id, title, description, created_at, created_by";
+      const sqlQuery = `INSERT INTO checklist
+        (title, description, created_by, created_at) values ($1, $2, $3, $4)
+        returning id, title, description, created_at, created_by
+      `;
       const result = await connection.query(
         sqlQuery,
         [

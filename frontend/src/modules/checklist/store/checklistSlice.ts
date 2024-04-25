@@ -163,6 +163,7 @@ export const checklistSlice = createSlice({
         const { parent_id } = action.payload;
         const idx = state.items.findIndex(item => item.id === parent_id);
         state.items[idx].subitem_count++;
+        state.items[idx].completed = false;
         state.items[idx].subItems?.push(action.payload);
         state.loading = false;
         state.success = true;
@@ -214,9 +215,21 @@ export const checklistSlice = createSlice({
         state.type = undefined;
       })
       .addCase(deleteSubItem.fulfilled, (state, action) => {
-        const { id, parent_id } = action.payload;
+        const { id, parent_id, completed } = action.payload;
         const idx = state.items.findIndex(item => item.id === parent_id);
+
+        const parentItem = state.items[idx];
+        let subItemCount = parentItem.subitem_count;
+        let completedSubItems = parentItem.completed_subitems;
+        subItemCount--;
+        if (completed) {
+          completedSubItems--;
+        }
         state.items[idx].subItems = state.items[idx].subItems?.filter((item) => item.id !== id);
+        state.items[idx].completed_subitems = completedSubItems;
+        state.items[idx].subitem_count = subItemCount;
+        state.items[idx].completed = (Number(completedSubItems) === Number(subItemCount) && Number(subItemCount) > 0);
+
         state.loading = false;
         state.success = true;
         state.type = ChecklistFormModalAction.DELETE_SUB_ITEM;
