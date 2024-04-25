@@ -1,10 +1,11 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import { rateLimit } from "express-rate-limit";
 import ErrorMiddleware from "./middleware/error";
 import config from "./config";
 import database from "./database";
+import routes from "./routes";
 
 const PORT = config.PORT || 3030;
 
@@ -24,20 +25,6 @@ app.use(rateLimit({
 }));
 app.use(ErrorMiddleware);
 
-
-app.get("/", (req: Request, res: Response) => {
-  res.json({
-    message: "Hello world!!!"
-  });
-});
-
-app.post("/", (req: Request, res: Response) => {
-  res.json({
-    message: "Hello World from post!!!",
-    data: req.body
-  });
-});
-
 // DB CONNECTION TEST
 database.connect().then((client) => {
   return client.query("SELECT NOW()").then(res => {
@@ -49,11 +36,7 @@ database.connect().then((client) => {
   });
 });
 
-app.use((_req: Request, res: Response) => {
-  res.status(404).json({
-    message: "Error."
-  });
-});
+app.use("/api", routes);
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console

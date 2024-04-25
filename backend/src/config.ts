@@ -9,7 +9,10 @@ const {
   DB_PORT,
   DB_NAME,
   DB_USER,
-  DB_PASS
+  DB_PASS,
+  BCRYPT_PASS_KEY,
+  BCRYPT_ROUNDS,
+  TOKEN
 } = process.env;
 
 export default {
@@ -19,5 +22,8 @@ export default {
   DB_PORT,
   DB_NAME: DB_NAME ?? "test",
   DB_USER,
-  DB_PASS
+  DB_PASS,
+  HASH_KEY: BCRYPT_PASS_KEY,
+  HASH_ROUNDS: BCRYPT_ROUNDS,
+  TOKEN
 };
