@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import cors from "cors";
 import { rateLimit } from "express-rate-limit";
 import ErrorMiddleware from "./middleware/error";
 import config from "./config";
@@ -12,8 +13,7 @@ const PORT = config.PORT || 3030;
 const app: Application = express();
 
 app.use(express.json());
-
-// MIDDLEWARE
+app.use(cors());
 app.use(morgan("common"));
 app.use(helmet());
 app.use(rateLimit({
