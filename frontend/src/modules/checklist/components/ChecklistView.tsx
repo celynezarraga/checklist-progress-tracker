@@ -51,27 +51,6 @@ const ChecklistView: FC<ChecklistViewProps> = ({
         />
       </Flex>
       {
-        items.length === 0 
-          ? loading
-            ? <Box textAlign="center">
-              <Spinner colorScheme="teal"/>
-            </Box>
-            : <Box
-              color="gray.500"
-              fontWeight="semibold"
-              letterSpacing="wide"
-              fontSize="sm"
-              fontStyle="italic"
-              ml="2"
-              mb="2"
-              flex="1"
-              textAlign="center"
-            >
-              No items yet. Click "+" to add one.
-            </Box>
-          : null
-      }
-      {
         items.map((item, index) => {
           return (
             <ChecklistItem

@@ -100,7 +100,7 @@ export const updateChecklistItem = createAsyncThunk(
         ...response.data.data,
         created_by: data.created_by,
         subitem_count: data.subitem_count,
-        completed_subitems: isToggleCompleted && completed ? data.completed_subitems : 0,
+        completed_subitems: isToggleCompleted && completed ? data.subitem_count : 0,
         subItems: data.subItems,
         isToggleCompleted
       };

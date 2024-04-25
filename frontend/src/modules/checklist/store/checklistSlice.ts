@@ -113,15 +113,12 @@ export const checklistSlice = createSlice({
         state.success = true;
         state.type = ChecklistFormModalAction.EDIT_ITEM;
         if (isToggleCompleted) {
-          console.log("here")
           const subItems = state.items[idx].subItems;
-          console.log("subItems", subItems)
           if (subItems) {
             const newSubItems: ChecklistSubitem[] = [];
             subItems.forEach(i => {
               newSubItems.push({...i, completed});
             });
-            console.log("newSubItems", newSubItems)
             state.items[idx].subItems = newSubItems;
           };
         }
