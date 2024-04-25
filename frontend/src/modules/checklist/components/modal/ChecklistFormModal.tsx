@@ -1,6 +1,7 @@
 import React, {
   FC,
   FormEvent,
+  ReactNode,
   useEffect,
   useState
 } from "react";
@@ -43,12 +44,14 @@ interface ChecklistFormModalProps {
   modalData: ChecklistFormModalDataType;
   handleSubmit: (formData: ChecklistFormData) => void;
   initialValues?: ChecklistFormData;
+  customView?: ReactNode;
 }
 
 const ChecklistFormModal: FC<ChecklistFormModalProps> = ({
   modalData,
   handleSubmit,
-  initialValues = ChecklistFormInitialValues
+  initialValues = ChecklistFormInitialValues,
+  customView
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
@@ -174,11 +177,17 @@ const ChecklistFormModal: FC<ChecklistFormModalProps> = ({
 
   return (
     <>
-      <Tooltip label={iconTooltip} fontSize="sm">
-        <Box mx={1} onClick={handleOnModalOpen}>
-          { icon }
+      {
+        customView
+        ? <Box mx={1} onClick={handleOnModalOpen}>
+          { customView }
         </Box>
-      </Tooltip>
+        : <Tooltip label={iconTooltip} fontSize="sm">
+          <Box mx={1} onClick={handleOnModalOpen}>
+            { icon }
+          </Box>
+        </Tooltip>
+      }
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={handleOnClose}>
         <form onSubmit={handleFormSubmit}>
           <ModalOverlay />
