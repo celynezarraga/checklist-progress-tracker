@@ -19,6 +19,7 @@ app.use(cors({
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 }));
+app.enable("trust proxy");
 app.use(morgan("common"));
 app.use(helmet());
 app.use(rateLimit({
