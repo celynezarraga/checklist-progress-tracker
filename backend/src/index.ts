@@ -14,7 +14,7 @@ const app: Application = express();
 
 app.use(express.json());
 app.use(cors({
-  origin: "*",
+  origin: "https://checklist-progress-tracker.vercel.app",
   methods: "*",
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
