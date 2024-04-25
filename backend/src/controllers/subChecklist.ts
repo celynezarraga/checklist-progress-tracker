@@ -47,9 +47,7 @@ export const updateOne = async (req: Request, res: Response, next: NextFunction)
     const isToggleCompleted = req.body.isToggleCompleted;
     const parentId = req.body.parent_id;
     
-    const checklistSubItem = await isToggleCompleted
-      ? subChecklistModel.updateOne(userId, req.body)
-      : subChecklistModel.toggleCompleted(userId, req.body);
+    const checklistSubItem = await subChecklistModel.updateOne(userId, req.body);
 
     if (isToggleCompleted) {
       const checklist = await checklistModel.getOne(userId, parentId);

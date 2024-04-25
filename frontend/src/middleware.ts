@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { BACKEND_URL, URLS } from "@/common/utils/urls";
+import { URLS } from "@/common/utils/urls";
+import { getVerifiedUser } from "./common/utils/session";
  
 const PROTECTED_ROUTES = [URLS.HOME];
 const PUBLIC_ROUTES = [URLS.LOGIN, URLS.REGISTER];
@@ -20,15 +21,7 @@ const middleware = async(req: NextRequest) => {
   }
 
   try {
-    const result = await fetch(`${BACKEND_URL}/api/user/verify`, {
-      method: "POST",
-      headers: {
-        "Accept": "application/json, text/plain, */*",
-        "Content-Type": "application/json; charset=UTF-8"
-      },
-      body: JSON.stringify({ token })
-    });
-    const validatedToken = await result.json();
+    const validatedToken = await getVerifiedUser(token);
     const isValidToken = validatedToken.status === "success";
 
     if (isPublicRoute && isValidToken) {

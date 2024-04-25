@@ -96,7 +96,7 @@ const Login = () => {
       >
         <Heading color={"teal.400"}>Log In</Heading>
         <Box minW={{ base: "90%", md: "468px" }}>
-        <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <Stack
               spacing={4}
               p="1rem"
