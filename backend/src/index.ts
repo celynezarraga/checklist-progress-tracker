@@ -14,12 +14,11 @@ const app: Application = express();
 
 app.use(express.json());
 app.use(cors({
-  origin: "https://checklist-progress-tracker.vercel.app",
+  origin: "*",
   methods: "*",
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 }));
-app.enable("trust proxy");
 app.use(morgan("common"));
 app.use(helmet());
 app.use(rateLimit({
@@ -27,7 +26,10 @@ app.use(rateLimit({
 	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
 	standardHeaders: "draft-7", 
 	legacyHeaders: false,
-  message: "Too many requests."
+  message: "Too many requests.",
+  validate: {
+    xForwardedForHeader: false
+  }
 }));
 app.use(errorMiddleware);
 
