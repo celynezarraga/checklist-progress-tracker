@@ -167,8 +167,9 @@ const ItemView: FC<ItemViewProps> = ({
           as="span"
           flex="1"
           textAlign="left"
-          fontSize="sm"
-          fontStyle="italic"
+          fontWeight={description ? "normal" : "light"}
+          fontSize={description ? "sm" : "xs"}
+          fontStyle={description ? "normal" : "italic"}
         >
           { `${description ? description : "No description provided."}` }
         </Box>
