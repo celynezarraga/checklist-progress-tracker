@@ -7,11 +7,7 @@ class SubChecklistModel {
     try {
       const { title, description, created_by, created_at, parent_id } = subChecklist;
       const connection = await database.connect();
-      const sqlQuery = `INSERT INTO sub_checklist
-        (title, description, created_by, created_at, parent_id)
-        values ($1, $2, $3, $4, $5)
-        returning id, title, description, created_at, created_by, parent_id
-      `;
+      const sqlQuery = "INSERT INTO sub_checklist (title, description, created_by, created_at, parent_id) values ($1, $2, $3, $4, $5) returning id, title, description, created_at, created_by, parent_id";
       const result = await connection.query(
         sqlQuery,
         [
@@ -101,30 +97,6 @@ class SubChecklistModel {
       return result.rows[0];
     } catch (err) {
       throw new Error(`Error deleting all subitems of (${parent_id}): ${(err as Error).message}`);
-    }
-  }
-
-  async toggleCompleted (userId: string, subChecklist: SubChecklist): Promise<SubChecklist> {
-    try {
-      const { id, completed } = subChecklist;
-      const connection = await database.connect();
-      const sqlQuery = `UPDATE sub_checklist
-        SET completed=$1
-        WHERE id=$2 AND created_by=$3 
-        RETURNING id, title, description, completed, created_at, parent_id
-      `;
-      const result = await connection.query(
-        sqlQuery,
-        [
-          completed,
-          id,
-          userId
-        ]
-      );
-      connection.release();
-      return result.rows[0];
-    } catch (err) {
-      throw new Error(`Error updating subitem: ${(err as Error).message}`);
     }
   }
 

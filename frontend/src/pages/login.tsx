@@ -2,9 +2,7 @@ import React from "react";
 import Login from "@/modules/user/Login";
 
 const LoginPage = () => {
-  return (
-    <Login />
-  );
+  return ( <Login /> );
 };
 
 export default LoginPage;

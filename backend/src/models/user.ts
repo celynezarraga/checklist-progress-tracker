@@ -25,7 +25,12 @@ class UserModel {
       connection.release();
       return result.rows[0];
     } catch (err) {
-      throw new Error(`Error creating new user (${user.email}): ${(err as Error).message}`);
+      const errMessage = (err as Error).message;
+      if (errMessage.includes("users_email_key")) {
+        throw new Error("Account already exists.");
+      } else {
+        throw new Error(`Error creating new user (${user.email}): ${errMessage}`);
+      }
     }
   }
 
@@ -93,7 +98,7 @@ class UserModel {
   async authenticate (email: string, password: string): Promise<User | null> {
     try {
       const connection = await database.connect();
-      const sqlQuery = "SELECT password FROM users WHERE email=($1)";
+      const sqlQuery = "SELECT * FROM users WHERE email=($1)";
       const result = await connection.query(sqlQuery, [email]);
       connection.release();
       if (result.rows.length) {
@@ -101,9 +106,9 @@ class UserModel {
         const isValidPass:boolean = validatePass(password, pass);
 
         if (isValidPass) {
-          const sqlQuery = "SELECT id, email, first_name, last_name FROM users WHERE email=($1)";
-          const user = await connection.query(sqlQuery, [email]);
-          return user.rows[0];
+          const user = result.rows[0];
+          delete user.password;
+          return user;
         }
       }
       return null;

@@ -21,6 +21,12 @@ export type UserApiResponse = {
   token: string,
 };
 
+export type UserVerificationApiResponse = {
+  data: UserApiResponse,
+  status: string,
+  message: string
+};
+
 export type UserLoginRequest = {
   email: string,
   password: string,

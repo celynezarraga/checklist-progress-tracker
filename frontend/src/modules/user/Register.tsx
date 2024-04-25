@@ -19,7 +19,15 @@ import { registerUser } from "./store/userActions";
 import { URLS } from "@/common/utils/urls";
 import InputField from "@/common/components/InputField";
 import { addToken } from "@/common/utils/session";
-import { PASSWORD_HELPER_TEXT, RegisterFormInitialInvalidValues, RegisterFormInitialValues, RegisterFormInvalidValues, RegisterFormValues, getPasswordHelperText, isValidPassword, validateRegisterFormInput } from "./utils/registerForm";
+import {
+  RegisterFormInitialInvalidValues,
+  RegisterFormInitialValues,
+  RegisterFormInvalidValues,
+  RegisterFormValues,
+  getPasswordHelperText,
+  isValidPassword,
+  validateRegisterFormInput
+} from "./utils/registerForm";
 
 const Register = () => {
   const router = useRouter();
