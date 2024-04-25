@@ -13,7 +13,12 @@ const PORT = config.PORT || 3030;
 const app: Application = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  methods: "*",
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+}));
 app.use(morgan("common"));
 app.use(helmet());
 app.use(rateLimit({
