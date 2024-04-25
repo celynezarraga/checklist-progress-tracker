@@ -1,8 +1,12 @@
 import { Router } from "express";
-import usersRoutes from "./api/users";
+import userRoutes from "./api/users";
+import checklistRoutes from "./api/checklist";
+import subChecklistRoutes from "./api/subChecklist";
 
 const routes = Router();
 
-routes.use("/user", usersRoutes);
+routes.use("/user", userRoutes);
+routes.use("/item", checklistRoutes);
+routes.use("/subitem", subChecklistRoutes);
 
 export default routes;
