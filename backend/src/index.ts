@@ -14,7 +14,7 @@ const app: Application = express();
 
 app.use(express.json());
 app.use(cors({
-  origin: config.CORS_ORIGIN,
+  origin: config.CORS_ORIGIN ?? "*",
   methods: "*",
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
