@@ -10,6 +10,7 @@ import {
   InputGroup,
   InputRightElement,
   Link,
+  Spinner,
   Stack
 } from "@chakra-ui/react";
 import { URLS } from "@/common/utils/urls";
@@ -143,7 +144,7 @@ const Login = () => {
                 colorScheme={"teal"}
                 width={"full"}
               >
-                Login
+                { loading ? <Spinner colorScheme="teal"/> : "Login" }
               </Button>
             </Stack>
           </form>

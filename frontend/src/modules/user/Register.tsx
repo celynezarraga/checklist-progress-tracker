@@ -12,6 +12,7 @@ import {
   InputGroup,
   InputRightElement,
   Link,
+  Spinner,
   Stack
 } from "@chakra-ui/react";
 import { AppDispatch, RootState } from "@/store/store";
@@ -200,7 +201,7 @@ const Register = () => {
                 colorScheme={"teal"}
                 width={"full"}
               >
-                Register
+                { loading ? <Spinner colorScheme="teal"/> : "Register" }
               </Button>
             </Stack>
           </form>
