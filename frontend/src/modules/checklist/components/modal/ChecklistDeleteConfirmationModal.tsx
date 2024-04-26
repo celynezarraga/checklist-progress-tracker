@@ -16,7 +16,7 @@ import {
   useDisclosure,
   useToast
 } from "@chakra-ui/react";
-import { ChecklistFormModalDataType } from "../../utils/checklistFormModal";
+import { ChecklistFormModalAction, ChecklistFormModalDataType } from "../../utils/checklistFormModal";
 
 interface ChecklistDeleteConfirmationModalProps {
   modalData: ChecklistFormModalDataType;
@@ -104,7 +104,9 @@ const ChecklistDeleteConfirmationModal: FC<ChecklistDeleteConfirmationModalProps
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-        <ModalHeader>{"Delete item"}</ModalHeader>
+        <ModalHeader>
+          {`Delete ${actionType === ChecklistFormModalAction.DELETE_ITEM ? "item" : "subtask"}`}
+        </ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <Box>
