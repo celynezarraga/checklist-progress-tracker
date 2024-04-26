@@ -12,7 +12,8 @@ const {
   DB_PASS,
   BCRYPT_PASS_KEY,
   BCRYPT_ROUNDS,
-  TOKEN
+  TOKEN,
+  CORS_ORIGIN
 } = process.env;
 
 export default {
@@ -25,5 +26,6 @@ export default {
   DB_PASS,
   HASH_KEY: BCRYPT_PASS_KEY,
   HASH_ROUNDS: BCRYPT_ROUNDS,
-  TOKEN
+  TOKEN,
+  CORS_ORIGIN
 };
