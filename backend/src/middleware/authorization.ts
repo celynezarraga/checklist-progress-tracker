@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import Error from "../interface/error";
+import Error from "../interfaces/error";
 import config from "../config";
 
 export const handleUnauthorizedAccess = (next: NextFunction) => {

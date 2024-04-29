@@ -8,7 +8,7 @@ const routes = Router();
 
 routes.route("/")
   .get(authMiddleware, controllers.getAll)
-  .post(authMiddleware, controllers.create);
+  .post(validationMiddleware, controllers.create);
 
 routes.route("/:parentId/subitem")
   .get(validationMiddleware, subChecklistControllers.getAllByParent);

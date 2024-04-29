@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import Error from "../interface/error";
+import Error from "../interfaces/error";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const errorMiddleware = (error: Error, req: Request, res: Response, next: NextFunction) => {

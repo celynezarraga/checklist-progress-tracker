@@ -1,12 +1,11 @@
 import { Router } from "express";
 import * as controllers from "../../controllers/subChecklist";
-import authMiddleware from "../../middleware/authorization";
 import validationMiddleware from "../../middleware/validation";
 
 const routes = Router();
 
 routes.route("/")
-  .post(authMiddleware, controllers.create);
+  .post(validationMiddleware, controllers.create);
 
 routes.route("/:id")
   .patch(validationMiddleware, controllers.updateOne)
