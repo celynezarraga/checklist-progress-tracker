@@ -8,7 +8,7 @@ import config from "./config";
 import database from "./database";
 import routes from "./routes";
 
-const PORT = config.PORT || 3030;
+
 
 const app: Application = express();
 
@@ -45,10 +45,5 @@ database.connect().then((client) => {
 });
 
 app.use("/api", routes);
-
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server has started at port: ${PORT}`);
-});
 
 export default app;
